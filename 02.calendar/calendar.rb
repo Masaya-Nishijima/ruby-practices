@@ -10,6 +10,11 @@ opt.on('-m VAL', '--month')
 opt.on('-y VAL', '--year')
 opt.parse!(ARGV, into: params)
 
+def print_space(x)  #指定数(x)個の空白をprintする関数(表示の整形用)
+  x.times do
+    print "\s"
+  end
+end
 
-
-puts "      #{params[:month]}月 #{params[:year]}" #一行目の表示用
+print_spece(6)
+puts "#{params[:month]}月 #{params[:year]}" #一行目の表示用
