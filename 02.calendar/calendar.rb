@@ -16,5 +16,5 @@ def print_space(x)  #指定数(x)個の空白をprintする関数(表示の整�
   end
 end
 
-print_spece(6)
+print_space(6)
 puts "#{params[:month]}月 #{params[:year]}" #一行目の表示用
