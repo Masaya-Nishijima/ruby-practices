@@ -1,15 +1,15 @@
 #!/usr/bin/env ruby
 
-require 'date'  #現在の日付を取得する。
-require 'optparse'  #コマンドライン引数から月・年を取る
+require 'date'
+require 'optparse'
 
 
 params = {}
 
-params[:month] = Date.today.month
+params[:month] = Date.today.month  #現在の日付を取得する。
 params[:year] = Date.today.year
 
-opt = OptionParser.new
+opt = OptionParser.new  #コマンドライン引数から月・年を取る
 opt.on('-m VAL', '--month')
 opt.on('-y VAL', '--year')
 opt.parse!(ARGV, into: params)
