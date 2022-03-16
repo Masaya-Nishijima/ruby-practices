@@ -18,3 +18,4 @@ end
 
 print_space(6)
 puts "#{params[:month]}月 #{params[:year]}" #一行目の表示用
+puts "日 月 火 水 木 金 土" #二行目の表示用
