@@ -17,8 +17,8 @@ shots.each_slice(2) do |s|
   frames << s
 end
 
-if frames[10] != nil #11フレーム目以降がある(10フレーム目にスペアかストライクがある。)
-  if frames[11] != nil #12フレーム目がある(10フレーム目が"ストライク-ストライク-3投目"である。)
+if frames[10] != nil #11フレーム以降がある(10フレームにスペアかストライクがある。)
+  if frames[11] != nil #12フレームがある(10フレームが"ストライク-ストライク-3投目"である。)
     3.times do |x|  #ストライクの[10, 0]の0を消す。
       if frames[9+x][1] == 0
         frames[9+x].pop
@@ -37,23 +37,28 @@ if frames[10] != nil #11フレーム目以降がある(10フレーム目にス�
     frames.pop
   end
 end
-p frames ##デバッグ用
 
 
-=begin
 point = 0
 frames.each_with_index do |frame, frame_index|
-  if frame_index == 10
+  if frame_index == 9                               #10フレーム処理
     point += frame.sum
-  else
-    point += frame.sum
-    if frame[0] == 10 # strike
+  else                                              #↓↓↓↓↓9フレームまでの処理↓↓↓↓↓
+    point += frame.sum                              #通常の加点
+    if frame[0] == 10                                 # 1.ストライクの加点
       point += frames[frame_index + 1][0]
-    elsif frame.sum == 10 # spare
+      if frames[frame_index + 1][0] == 10               # 1.1.ストライクが連続する場合
+        if frame_index == 8                               #1.1.1.次が10フレームの場合
+          point += frames[frame_index + 1][1]
+        else
+          point += frames[frame_index + 2][0]             #1.1.2.次が10フレームでないなら2フレーム先の1投を参照
+        end
+      else
+        point += frames[frame_index + 1][1]             #1.2連続ストライクでない場合
+      end
+    elsif frame.sum == 10                             # 2.スペアの加点
       point += frames[frame_index + 1][0]
-      p frames[frame_index + 1]
     end
-  end
+  end                                               #↑↑↑↑↑9フレームまでの処理↑↑↑↑↑
 end
 puts point
-=end
