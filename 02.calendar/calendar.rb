@@ -18,7 +18,7 @@ params[:year] = params[:year].to_i
 
 print_cal_point = Date.new(params[:year], params[:month], 1) #表示するカレンダーの位置指定 月の始まりの曜日を参照するため一日を設定
 
-day_of_week = {"Sun" =>  0, "Mon" => 1, "Tue" => 2, "Wed" => 3, "Thu" => 4, "Fri" => 5, "Sta" => 6} #曜日を数字と対応させる。
+day_of_week = {"Sun" =>  0, "Mon" => 1, "Tue" => 2, "Wed" => 3, "Thu" => 4, "Fri" => 5, "Sat" => 6} #曜日を数字と対応させる。
 month_first_day = day_of_week[print_cal_point.strftime('%a')] #月の始まりの曜日を取得する。
 
 def print_space(x)  #指定数(x)個の空白をprintする関数(表示の整形用)
