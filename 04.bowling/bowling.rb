@@ -9,7 +9,7 @@ scores.each do |s|
     shots << 10
     shots << 0
   else
-    shots << s.to_i 
+    shots << s.to_i
   end
 end
 frames = []
