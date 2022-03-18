@@ -1,33 +1,32 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-score = ARGV[0]
-scores = score.split(',')
+score = ARGV[0] # 引数を取得
+scores = score.split(',') # 引数を','で区切る
 shots = []
 scores.each do |s|
-  if s == 'X' # strike
+  if s == 'X' # ストライクを10, 0にする。
     shots << 10
     shots << 0
   else
-    shots << s.to_i
+    shots << s.to_i 
   end
 end
-
 frames = []
-shots.each_slice(2) do |s|
+shots.each_slice(2) do |s| # 2投を1フレームとして区切る。
   frames << s
 end
 
-unless frames[10].nil? # 11フレーム以降がある(10フレームにスペアかストライクがある。)
-  if !frames[11].nil? # 12フレームがある(10フレームが"ストライク-ストライク-3投目"である。)
+unless frames[10].nil? # 11フレーム以降がある(=10フレームにスペアかストライクがある。)
+  if !frames[11].nil? # 12フレームがある(=10フレームが"ストライク-ストライク-3投目"である。)
     3.times do |x| # ストライクの[10, 0]の0を消す。
       frames[9 + x][1].zero? && frames[9 + x].pop
     end
-    frames[9].push(frames[10][0])
+    frames[9].push(frames[10][0]) # 10フレームが3投になるように整形
     frames[9].push(frames[11][0])
     frames.pop(2)
   elsif frames[9] == [10, 0] # 10フレームでストライク("ストライク-ストライク-3投目"を除く)
-    frames[9].pop
+    frames[9].pop # 10フレームが3投になるように整形
     frames[9].push(frames[10][0])
     frames[9].push(frames[10][1])
     frames.pop
