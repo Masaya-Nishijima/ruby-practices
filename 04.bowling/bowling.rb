@@ -12,10 +12,7 @@ scores.each do |s|
     shots << s.to_i
   end
 end
-frames = []
-shots.each_slice(2) do |s| # 2投を1フレームとして区切る。
-  frames << s
-end
+frames = shots.each_slice(2).to_a # 2投を1フレームとして区切る。
 
 unless frames[10].nil? # 11フレーム以降がある(=10フレームにスペアかストライクがある。)
   if !frames[11].nil? # 12フレームがある(=10フレームが"ストライク-ストライク-3投目"である。)
