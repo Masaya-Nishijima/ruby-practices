@@ -48,9 +48,7 @@ while true
 
   print_cal_point += 1                #日付を一日増やす。
   
-  if print_cal_point.day == 1         #日付が1(=一月文の記述終了)ならループを終了する。
-    break
-  end
+  break if print_cal_point.day == 1         #日付が1(=一月文の記述終了)ならループを終了する。
 end
 
 print "\n\n"                          #表示位置調整
