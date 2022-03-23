@@ -22,9 +22,7 @@ day_of_week = {"Sun" =>  0, "Mon" => 1, "Tue" => 2, "Wed" => 3, "Thu" => 4, "Fri
 month_first_day = day_of_week[print_cal_point.strftime('%a')] #月の始まりの曜日を取得する。
 
 def print_space(x)  #指定数(x)個の空白をprintする関数(表示の整形用)
-  x.times do
-    print "\s"
-  end
+  x.times { print "\s" }
 end
 
 print_space(6)
