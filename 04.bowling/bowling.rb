@@ -42,16 +42,8 @@ frames.each_with_index do |frame, frame_index|
 
   point += frame.sum # 通常の加点
   if frame[0] == 10 # 1.ストライクの加点
-    point += frames[frame_index + 1][0]
-    point += if frames[frame_index + 1][0] == 10 # 1.1.ストライクが連続する場合
-               if frame_index == 8 # 1.1.1.次が10フレームの場合
-                 frames[frame_index + 1][1]
-               else
-                 frames[frame_index + 2][0] # 1.1.2.次が10フレームでないなら2フレーム先の1投を参照
-               end
-             else
-               frames[frame_index + 1][1] # 1.2連続ストライクでない場合
-             end
+    point += frames[frame_index + 1].take(2).sum
+    point += (frames[frame_index + 1][0] == 10) && (frame_index < 8) ? frames[frame_index + 2][0] : 0 # 9フレーム未満で連続ストライクの場合
   elsif frame.sum == 10 # 2.スペアの加点
     point += frames[frame_index + 1][0]
   end
