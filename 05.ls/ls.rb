@@ -1,8 +1,10 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
+
 WIDTH = 3
 
-def sort_array(array) # 入力された一次元配列を、WIDTH幅の二次元配列にする関数
+# 入力された一次元配列を、WIDTH幅の二次元配列にする関数
+def sort_array(array)
   height = (array.size.to_f / WIDTH).ceil
   answer_array = []
 
@@ -25,7 +27,8 @@ def sort_array(array) # 入力された一次元配列を、WIDTH幅の二次元
   answer_array
 end
 
-def catch_file(directory = Dir.getwd) # パス内のファイルを取得するメソッド(引数なしのときはカレントディレクトリ)
+# パス内のファイルを取得するメソッド(引数なしのときはカレントディレクトリ)
+def catch_file(directory = Dir.getwd)
   items = []
   Dir.foreach(directory) do |item|
     next if /^\..*/.match?(item)
