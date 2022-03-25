@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
+WIDTH = 3
 
 def sort_array(array)
-  width = 3
-  height = (array.size.to_f / width).ceil
+  height = (array.size.to_f / WIDTH).ceil
   answer_array = []
 
   if array.size < 3
@@ -17,7 +17,7 @@ def sort_array(array)
   array = array.each_slice(height).to_a
   height.times do |row|
     middle_array = []
-    width.times do |column|
+    WIDTH.times do |column|
       middle_array << (array[column][row])
     end
     answer_array << middle_array
@@ -44,7 +44,7 @@ files =
 
 files = sort_array(files.sort)
 files.size.times do |time|
-  3.times do |column|
+  WIDTH.times do |column|
     printf('%-24s', files[time][column])
   end
   puts
