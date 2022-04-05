@@ -28,7 +28,7 @@ def sort_array(array)
 end
 
 # パス内のファイルを取得するメソッド(引数なしのときはカレントディレクトリ)
-def catch_file(directory = Dir.getwd)
+def list_up_files(directory = Dir.getwd)
   items = []
   Dir.foreach(directory) do |item|
     next if /^\..*/.match?(item)
@@ -40,9 +40,9 @@ end
 
 files = # カレントディレクトリor指定パスのファイルを取得する
   if ARGV[0].nil?
-    catch_file
+    list_up_files
   else
-    catch_file(File.absolute_path(ARGV[0]))
+    list_up_files(File.absolute_path(ARGV[0]))
   end
 
 files = sort_array(files.sort)
