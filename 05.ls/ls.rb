@@ -9,10 +9,7 @@ def sort_array(array)
   answer_array = []
 
   if array.size < 3 # 要素数が3以下のときの処理(一行で表示が終わる)
-    middle_array = []
-    array.size.times do |time|
-      middle_array << array[time]
-    end
+    middle_array = Array.new(array.size) { |time| array[time] }
     return answer_array << middle_array
   end
 
