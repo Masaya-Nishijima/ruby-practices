@@ -29,13 +29,7 @@ end
 
 # パス内のファイルを取得するメソッド(引数なしのときはカレントディレクトリ)
 def list_up_files(directory = Dir.getwd)
-  items = []
-  Dir.foreach(directory) do |item|
-    next if /^\..*/.match?(item)
-
-    items << item
-  end
-  items
+  Dir.glob('*', base: directory)
 end
 
 files = # カレントディレクトリor指定パスのファイルを取得する
