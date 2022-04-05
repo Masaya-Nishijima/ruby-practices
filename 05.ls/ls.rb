@@ -18,11 +18,7 @@ def sort_array(array)
 
   array = array.each_slice(height).to_a
   height.times do |row|
-    middle_array = []
-    WIDTH.times do |column|
-      middle_array << (array[column][row])
-    end
-    answer_array << middle_array
+    answer_array << Array.new(WIDTH) { |column| array[column][row] }
   end
   answer_array
 end
