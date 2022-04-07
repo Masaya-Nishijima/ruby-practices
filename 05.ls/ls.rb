@@ -32,8 +32,7 @@ files = # カレントディレクトリor指定パスのファイルを取得�
     list_up_files(File.absolute_path(ARGV[0]))
   end
 
-display_width = files.map(&:length).max +  7 # 長い名前のファイルがあって、最低でも7マスは空白ができるように設定
-if display_width < 24 then display_width = 24 end # デフォルトのファイル名の幅 組み込みlsを参考に設定
+display_width = [files.map(&:length).max + 7, 24].max # 最低でも7マスは空白ができるように設定 デフォルトのファイル名の幅として24を指定している。 組み込みlsを参考に設定
 files = sort_array(files.sort)
 files.size.times do |time|
   WIDTH.times do |column|
