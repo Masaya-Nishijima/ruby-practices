@@ -20,16 +20,11 @@ def sort_array(array)
   answer_array
 end
 
-# パス内のファイルを取得するメソッド(引数なしのときはカレントディレクトリ)
-def list_up_files(directory = Dir.getwd)
-  Dir.glob('*', base: directory)
-end
-
 files = # カレントディレクトリor指定パスのファイルを取得する
   if ARGV[0].nil?
-    list_up_files
+    Dir.glob('*', base: Dir.getwd)
   else
-    list_up_files(File.absolute_path(ARGV[0]))
+    Dir.glob('*', base: File.absolute_path(ARGV[0]))
   end
 
 display_width = [files.map(&:length).max + 7, 24].max # 最低でも7マスは空白ができるように設定 デフォルトのファイル名の幅として24を指定している。 組み込みlsを参考に設定
