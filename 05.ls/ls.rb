@@ -8,6 +8,9 @@ opt = OptionParser.new
 opt.on('-a', '--all') { |v| params[:all] = v }
 opt.parse!(ARGV)
 
+has_all = params[:all].nil? ? 0 : File::FNM_DOTMATCH
+has_path = ARGV[0].nil? ? Dir.getwd : File.absolute_path(ARGV[0])
+
 WIDTH = 3
 
 # 入力された一次元配列を、WIDTH幅の二次元配列にする関数
@@ -27,19 +30,7 @@ def sort_array(array)
   array.transpose
 end
 
-files = # カレントディレクトリor指定パスのファイルを取得する
-  if params[:all].nil?
-    if ARGV[0].nil?
-      Dir.glob('*', base: Dir.getwd)
-    else
-      Dir.glob('*', base: File.absolute_path(ARGV[0]))
-    end
-  elsif ARGV[0].nil?
-    Dir.glob('*', File::FNM_DOTMATCH, base: Dir.getwd)
-  else
-    Dir.glob('*', File::FNM_DOTMATCH, base: File.absolute_path(ARGV[0]))
-
-  end
+files = Dir.glob('*', has_all, base: has_path)
 
 display_width = [files.map(&:length).max + 7, 24].max # 最低でも7マスは空白ができるように設定 デフォルトのファイル名の幅として24を指定している。 組み込みlsを参考に設定
 files = sort_array(files.sort)
