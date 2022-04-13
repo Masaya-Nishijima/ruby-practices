@@ -31,6 +31,7 @@ def sort_array(array)
 end
 
 files = Dir.glob('*', has_all, base: has_path)
+exit if files == []
 
 display_width = [files.map(&:length).max + 7, 24].max # 最低でも7マスは空白ができるように設定 デフォルトのファイル名の幅として24を指定している。 組み込みlsを参考に設定
 files = sort_array(files.sort)
