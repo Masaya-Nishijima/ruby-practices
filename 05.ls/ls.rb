@@ -6,6 +6,7 @@ require 'optparse'
 params = {}
 opt = OptionParser.new
 opt.on('-a', '--all') { |v| params[:all] = v }
+opt.on('-r', '--reverse') { |v| params[:reverse] = v }
 opt.parse!(ARGV)
 
 has_all = params[:all].nil? ? 0 : File::FNM_DOTMATCH
@@ -34,7 +35,9 @@ files = Dir.glob('*', has_all, base: has_path)
 exit if files == []
 
 display_width = [files.map(&:length).max + 7, 24].max # 最低でも7マスは空白ができるように設定 デフォルトのファイル名の幅として24を指定している。 組み込みlsを参考に設定
-files = sort_array(files.sort)
+files.sort!
+files.reverse! if params[:reverse]
+files = sort_array(files)
 files.size.times do |time|
   files[time].size.times do |column|
     printf('%-*s', display_width, files[time][column])
