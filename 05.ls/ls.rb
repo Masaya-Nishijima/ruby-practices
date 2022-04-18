@@ -80,6 +80,27 @@ def long_format(files, base_dir_name)
   end
 end
 
+def select_widthes(files)
+  widthes = {}
+  widthes[:link_width] = files.map { |file| file[:link] }.max.to_s.length
+  widthes[:owner_width] = files.map { |file| file[:owner].length }.max
+  widthes[:group_width] = files.map { |file| file[:group].length }.max
+  widthes[:size_width] = files.map { |file| file[:size] }.max.to_s.length
+  widthes[:time_width] = 2
+  widthes
+end
+
+def print_line(file, widthes)
+  print_type_and_parmit(file[:mode])
+  printf("%#{widthes[:link_width]}d\s", file[:link])
+  printf("%#{widthes[:owner_width]}s\s\s", file[:owner])
+  printf("%#{widthes[:group_width]}s\s\s", file[:group])
+  printf("%#{widthes[:size_width]}d\s", file[:size])
+  printf("%#{widthes[:time_width]}d\s%#{widthes[:time_width]}d\s", file[:time].month, file[:time].day)
+  printf("%#{widthes[:time_width]}d:%#{widthes[:time_width]}d\s", file[:time].hour, file[:time].min)
+  puts file[:name]
+end
+
 def print_type_and_parmit(file_mode)
   # ファイルタイプとパーミッションを八進数7桁文字列に変換
   type_and_permisson = format('%#07o', file_mode)
@@ -104,27 +125,6 @@ end
 def print_permisson(permisson)
   permits = ['---', '--x', '-w-', '-wx', 'r--', 'r-x', 'r-w', 'rwx']
   print permits[permisson.to_i]
-end
-
-def select_widthes(files)
-  widthes = {}
-  widthes[:link_width] = files.map { |file| file[:link] }.max.to_s.length
-  widthes[:owner_width] = files.map { |file| file[:owner].length }.max
-  widthes[:group_width] = files.map { |file| file[:group].length }.max
-  widthes[:size_width] = files.map { |file| file[:size] }.max.to_s.length
-  widthes[:time_width] = 2
-  widthes
-end
-
-def print_line(file, widthes)
-  print_type_and_parmit(file[:mode])
-  printf("%#{widthes[:link_width]}d\s", file[:link])
-  printf("%#{widthes[:owner_width]}s\s\s", file[:owner])
-  printf("%#{widthes[:group_width]}s\s\s", file[:group])
-  printf("%#{widthes[:size_width]}d\s", file[:size])
-  printf("%#{widthes[:time_width]}d\s%#{widthes[:time_width]}d\s", file[:time].month, file[:time].day)
-  printf("%#{widthes[:time_width]}d:%#{widthes[:time_width]}d\s", file[:time].hour, file[:time].min)
-  puts file[:name]
 end
 ###### ↑↑↑↑↑-lオプション用のメソッド↑↑↑↑↑ #####
 
