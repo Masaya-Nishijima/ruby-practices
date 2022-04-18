@@ -16,7 +16,7 @@ def main
   display_width = [files.map(&:length).max + 7, 24].max # 最低でも7マスは空白ができるように設定 デフォルトのファイル名の幅として24を指定している。 組み込みlsを参考に設定
   files.sort!
   files.reverse! if params[:reverse]
-  params[:long_format] ? long_format(files) : short_format(files, display_width)
+  params[:long_format] ? long_format(files, has_path) : short_format(files, display_width)
 end
 
 # コマンドの引数を取得
@@ -60,12 +60,8 @@ end
 
 ###### ↓↓↓↓↓-lオプション用のメソッド↓↓↓↓↓ #####
 # -lが指定された場合の表示
-def long_format(files)
-  if !ARGV[0].nil?
-    files.map! { |file| { name: file, info: File.lstat(ARGV[0] + file) } }
-  else
-    files.map! { |file| { name: file, info: File.lstat(file) } }
-  end
+def long_format(files, base_dir_name)
+  files.map! { |file| { name: file, info: File.lstat(base_dir_name + '/' + file) } }
   widthes = select_widthes(files)
   printf("total\s%d\n", (files.map { |file| file[:info].size }.max / 512.to_f).ceil)
   files.each do |file|
@@ -90,13 +86,8 @@ def print_type_and_parmit(file_info)
 end
 
 def print_type(type)
-  printf 'p' if type == '01'
-  printf 'c' if type == '02'
-  printf 'd' if type == '04'
-  printf 'b' if type == '06'
-  printf '-' if type == '10'
-  printf 'l' if type == '12'
-  printf 's' if type == '14'
+  type_hash = {'01' => 'p', '02' => 'c', '04' => 'd', '06' => 'b', '10' => '-', '12' => 'l', '14' => 's'}
+  print type_hash[type]
 end
 
 def print_permisson(permisson)
