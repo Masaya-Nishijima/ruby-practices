@@ -14,7 +14,10 @@ def main
   has_path = ARGV[0].nil? ? Dir.getwd : File.absolute_path(ARGV[0])
 
   files = Dir.glob('*', has_all, base: has_path)
-  exit if files == [] # 該当するファイルが内場合プログラム終了
+  if files == [] # 引数にファイル名が直接していされている場合
+    files[0] = ARGV[0]
+    has_path.sub!(/[.a-zA-Z0-9]+$/, '')
+  end
   display_width = [files.map(&:length).max + 7, 24].max # 最低でも7マスは空白ができるように設定 デフォルトのファイル名の幅として24を指定している。 組み込みlsを参考に設定
   files.sort!
   files.reverse! if params[:reverse]
