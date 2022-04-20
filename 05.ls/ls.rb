@@ -4,6 +4,8 @@
 require 'optparse'
 require 'etc'
 WIDTH = 3
+TYPE_HASH = { '01' => 'p', '02' => 'c', '04' => 'd', '06' => 'b', '10' => '-', '12' => 'l', '14' => 's' }.freeze
+PERMITS = ['---', '--x', '-w-', '-wx', 'r--', 'r-x', 'r-w', 'rwx'].freeze
 
 def main
   params = read_option
@@ -118,13 +120,11 @@ def print_type_and_parmit(file_mode)
 end
 
 def print_type(type)
-  type_hash = { '01' => 'p', '02' => 'c', '04' => 'd', '06' => 'b', '10' => '-', '12' => 'l', '14' => 's' }
-  print type_hash[type]
+  print TYPE_HASH[type]
 end
 
 def print_permisson(permisson)
-  permits = ['---', '--x', '-w-', '-wx', 'r--', 'r-x', 'r-w', 'rwx']
-  print permits[permisson.to_i]
+  print PERMITS[permisson.to_i]
 end
 ###### ↑↑↑↑↑-lオプション用のメソッド↑↑↑↑↑ #####
 
