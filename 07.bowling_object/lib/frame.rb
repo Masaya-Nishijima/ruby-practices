@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 class Frame
   attr_reader :first_shot, :second_shot
+
   def initialize(shots)
     @shots = []
     shots.each do |shot|
@@ -14,7 +17,7 @@ class Frame
   end
 
   def status
-    return 'THREE_SHOT' if !@shots[2].nil?
+    return 'THREE_SHOT' unless @shots[2].nil?
     return 'STRIKE' if @shots[0].point == 10
     return 'SPARE' if @shots.slice(0, 2).map(&:point).sum == 10
   end
