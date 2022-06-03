@@ -19,7 +19,7 @@ RSpec.describe "フレーム" do
     end
     
     context "ストライク" do
-      it "X → 10 $ STRIKE" do
+      it "X → 10 & STRIKE" do
         frame = Frame.new(['X'])
         expect(frame.point).to eq 10
         expect(frame.status).to eq 'STRIKE'
