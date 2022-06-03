@@ -13,6 +13,14 @@ class Game
     end
   end
 
+  def score
+    score = @frames.map(&:point).sum
+
+    score + calc_strike_score + calc_spare_score
+  end
+
+  private
+
   def slice_result(result)
     answer = []
     result_array = result.split(',').map do |result_shot|
@@ -26,12 +34,6 @@ class Game
                 end
     end
     answer << result_array
-  end
-
-  def score
-    score = @frames.map(&:point).sum
-
-    score + calc_strike_score + calc_spare_score
   end
 
   def calc_strike_score
