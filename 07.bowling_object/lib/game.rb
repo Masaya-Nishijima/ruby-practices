@@ -37,10 +37,10 @@ class Game
       end
       if frame.status == 'STRIKE'
         if next_frame.status == "STRIKE"
-          score += next_frame.first_shot.point
-          score += after_next_frame.first_shot.point
-        else
           score += next_frame.point
+          score += after_next_frame.first_shot.point if index != MAX_FRAME - 2
+        else
+          index == 8 ? score += next_frame.first_shot.point + next_frame.second_shot.point : score += next_frame.point
         end
       end
     }

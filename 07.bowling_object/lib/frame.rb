@@ -1,11 +1,12 @@
 class Frame
-  attr_reader :first_shot
+  attr_reader :first_shot, :second_shot
   def initialize(shots)
     @shots = []
     shots.each do |shot|
       @shots.push Shot.new(shot)
     end
     @first_shot = @shots[0]
+    @second_shot = @shots[1]
   end
 
   def point
