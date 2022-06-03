@@ -22,12 +22,5 @@ RSpec.describe 'ショット' do
         expect(shot.point).to eq 10
       end
     end
-
-    context 'nil入力への対応' do
-      it 'nil→nil' do
-        shot = Shot.new(nil)
-        expect(shot.point).to eq nil
-      end
-    end
   end
 end
