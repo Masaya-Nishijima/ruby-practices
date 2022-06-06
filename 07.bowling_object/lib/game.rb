@@ -14,9 +14,9 @@ class Game
   end
 
   def score
-    score = @frames.map(&:point).sum
+    base_score = @frames.map(&:point).sum
 
-    score + calc_strike_score + calc_spare_score
+    base_score + calc_strike_score + calc_spare_score
   end
 
   private

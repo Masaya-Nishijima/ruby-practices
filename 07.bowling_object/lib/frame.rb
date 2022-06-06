@@ -18,7 +18,7 @@ class Frame
 
   def status
     return 'THREE_SHOT' unless @shots[2].nil?
-    return 'STRIKE' if @shots[0].point == 10
+    return 'STRIKE' if @first_shot.point == 10
     return 'SPARE' if @shots.slice(0, 2).map(&:point).sum == 10
   end
 end
