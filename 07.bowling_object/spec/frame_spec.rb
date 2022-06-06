@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative '../lib/shot'
 require_relative '../lib/frame'
 
 RSpec.describe 'フレーム' do
