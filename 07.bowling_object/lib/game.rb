@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require './lib/frame'
 
 MAX_FRAME = 10
 class Game
