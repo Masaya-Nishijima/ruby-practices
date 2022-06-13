@@ -22,13 +22,8 @@ class Game
     result_array = result.split(',').map do |result_shot|
       result_shot == 'X' ? 'X' : result_shot.to_i
     end
-    (MAX_FRAME - 1).times do
-      answer << if result_array[0] == 'X'
-                  result_array.shift(1)
-                else
-                  result_array.shift(2)
-                end
-    end
+
+    (MAX_FRAME - 1).times { answer << result_array.shift(result_array[0] == 'X' ? 1 : 2) }
     answer << result_array
   end
 
