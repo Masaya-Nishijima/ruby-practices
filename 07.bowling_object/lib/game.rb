@@ -6,10 +6,7 @@ class Game
   def initialize(game_result)
     score_board = slice_result(game_result)
 
-    @frames = []
-    score_board.each do |frame_score|
-      @frames << Frame.new(frame_score)
-    end
+    @frames = score_board.map { |frame_score| Frame.new(frame_score) }
   end
 
   def score
