@@ -19,12 +19,12 @@ class Game
 
   def slice_result(result)
     answer = []
-    result_array = result.split(',').map do |result_shot|
+    results = result.split(',').map do |result_shot|
       result_shot == 'X' ? 'X' : result_shot.to_i
     end
 
-    (MAX_FRAME - 1).times { answer << result_array.shift(result_array[0] == 'X' ? 1 : 2) }
-    answer << result_array
+    (MAX_FRAME - 1).times { answer << results.shift(results[0] == 'X' ? 1 : 2) }
+    answer << results
   end
 
   def calc_strike_score
