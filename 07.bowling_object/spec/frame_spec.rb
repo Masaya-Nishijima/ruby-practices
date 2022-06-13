@@ -31,7 +31,6 @@ RSpec.describe 'フレーム' do
       it '2,8,5 → 15 $ THREE_SHOT' do
         frame = Frame.new([2, 8, 5])
         expect(frame.point).to eq 15
-        expect(frame.status).to eq 'THREE_SHOT'
       end
     end
   end
