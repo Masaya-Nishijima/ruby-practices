@@ -4,6 +4,8 @@
 require 'optparse'
 require 'etc'
 WIDTH = 3
+TYPE_HASH = { '01' => 'p', '02' => 'c', '04' => 'd', '06' => 'b', '10' => '-', '12' => 'l', '14' => 's' }.freeze
+PERMITS = ['---', '--x', '-w-', '-wx', 'r--', 'r-x', 'r-w', 'rwx'].freeze
 
 def main
   params = read_option
@@ -12,7 +14,10 @@ def main
   has_path = ARGV[0].nil? ? Dir.getwd : File.absolute_path(ARGV[0])
 
   files = Dir.glob('*', has_all, base: has_path)
-  exit if files == [] # 該当するファイルが内場合プログラム終了
+  if files == [] # 引数にファイル名が直接していされている場合
+    files[0] = ARGV[0]
+    has_path.sub!(/[.a-zA-Z0-9]+$/, '')
+  end
   display_width = [files.map(&:length).max + 7, 24].max # 最低でも7マスは空白ができるように設定 デフォルトのファイル名の幅として24を指定している。 組み込みlsを参考に設定
   files.sort!
   files.reverse! if params[:reverse]
@@ -118,13 +123,11 @@ def print_type_and_parmit(file_mode)
 end
 
 def print_type(type)
-  type_hash = { '01' => 'p', '02' => 'c', '04' => 'd', '06' => 'b', '10' => '-', '12' => 'l', '14' => 's' }
-  print type_hash[type]
+  print TYPE_HASH[type]
 end
 
 def print_permisson(permisson)
-  permits = ['---', '--x', '-w-', '-wx', 'r--', 'r-x', 'r-w', 'rwx']
-  print permits[permisson.to_i]
+  print PERMITS[permisson.to_i]
 end
 ###### ↑↑↑↑↑-lオプション用のメソッド↑↑↑↑↑ #####
 
