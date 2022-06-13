@@ -5,9 +5,7 @@ class Frame
   attr_reader :first_shot, :second_shot
 
   def initialize(shots)
-    @shots = shots.map { |shot| Shot.new(shot) }
-    @first_shot = @shots[0]
-    @second_shot = @shots[1]
+    @first_shot, @second_shot = @shots = shots.map { |shot| Shot.new(shot) }
   end
 
   def point
