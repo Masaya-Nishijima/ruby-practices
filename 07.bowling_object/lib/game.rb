@@ -3,13 +3,11 @@ require './lib/frame'
 
 MAX_FRAME = 10
 class Game
-  attr_reader :score_board
-
   def initialize(game_result)
-    @score_board = slice_result(game_result)
+    score_board = slice_result(game_result)
 
     @frames = []
-    @score_board.each do |frame_score|
+    score_board.each do |frame_score|
       @frames << Frame.new(frame_score)
     end
   end
