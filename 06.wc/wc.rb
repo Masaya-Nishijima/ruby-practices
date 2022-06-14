@@ -43,3 +43,7 @@ def read_option
 end
 
 main
+
+unless ARGV[1].nil?
+  exec("ruby #{__dir__}/wc.rb #{ARGV.drop(1).join(' ')}")
+end
