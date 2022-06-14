@@ -4,6 +4,7 @@
 require 'optparse'
 require 'etc'
 TEMP_FILE = '.tmp_wc'
+WIDTH = 5
 
 def main
   params = read_option
@@ -11,9 +12,7 @@ def main
   has_path = ARGV[0].nil? ? TEMP_FILE : File.absolute_path(ARGV[0])
   if has_path == TEMP_FILE
     File.open(has_path, 'w+') do |tmp_file|
-      readlines.each do |line|
-        tmp_file.write line
-      end
+      readlines.each { |line| tmp_file.write line }
     end
   end
 
@@ -22,13 +21,13 @@ def main
     file_body = file.read
     file_size = file.size
     n_lines = file_body.count("\n")
-    n_lines += 1 if /[^\n]\z/ =~ file_body
+    n_lines += 1 if /[^\n]\z/.match?(file_body)
 
     n_words = file_body.scan(/[!-~]+/).size
     if params[:lines]
-      printf("%8d %s\n", n_lines, file_name)
+      printf("%#{WIDTH}d %s\n", n_lines, file_name)
     else
-      printf("%5d %5d %5d %s\n", n_lines, n_words, file_size, file_name)
+      printf("%#{WIDTH}d %#{WIDTH}d %#{WIDTH}d %s\n", n_lines, n_words, file_size, file_name)
     end
   end
 end
@@ -44,6 +43,4 @@ end
 
 main
 
-unless ARGV[1].nil?
-  exec("ruby #{__dir__}/wc.rb #{ARGV.drop(1).join(' ')}")
-end
+exec("ruby #{__dir__}/wc.rb #{ARGV.drop(1).join(' ')}") unless ARGV[1].nil?
