@@ -6,9 +6,7 @@ require 'etc'
 TEMP_FILE = '.tmp_wc'
 WIDTH = 5
 
-def main
-  params = read_option
-
+def main(params)
   has_path = ARGV[0].nil? ? TEMP_FILE : File.absolute_path(ARGV[0])
   if has_path == TEMP_FILE
     File.open(has_path, 'w+') do |tmp_file|
@@ -41,6 +39,8 @@ def read_option
   params
 end
 
-main
+params = read_option
 
-exec("ruby #{__dir__}/wc.rb #{ARGV.drop(1).join(' ')}") unless ARGV[1].nil?
+main params
+
+exec("ruby #{__dir__}/wc.rb#{' -l' if params[:lines]} #{ARGV.drop(1).join(' ')}") unless ARGV[1].nil?
