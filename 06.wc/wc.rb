@@ -20,8 +20,8 @@ def main(params)
     file_size = file.size
     n_lines = file_body.count("\n")
     n_lines += 1 if /[^\n]\z/.match?(file_body)
-
     n_words = file_body.scan(/[!-~]+/).size
+
     if params[:lines]
       printf("%#{WIDTH}d %s\n", n_lines, file_name)
     else
