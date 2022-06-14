@@ -3,25 +3,33 @@
 
 require 'optparse'
 require 'etc'
+TEMP_FILE = '.tmp_wc'
 
 def main
   params = read_option
 
-  has_path = ARGV[0].nil? ? nil : File.absolute_path(ARGV[0])
-  p file_name = has_path.split('/')[-1]
-  file = File.open(has_path)
-  file_body = file.read
-  file_size = file.size
-  file.close
+  has_path = ARGV[0].nil? ? TEMP_FILE : File.absolute_path(ARGV[0])
+  if has_path == TEMP_FILE
+    File.open(has_path, 'w+') do |tmp_file|
+      readlines.each do |line|
+        tmp_file.write line
+      end
+    end
+  end
 
-  n_lines = file_body.count("\n")
-  n_lines += 1 if /[^\n]\z/ =~ file_body
+  File.open(has_path) do |file|
+    file_name = has_path == TEMP_FILE ? '' : has_path.split('/')[-1]
+    file_body = file.read
+    file_size = file.size
+    n_lines = file_body.count("\n")
+    n_lines += 1 if /[^\n]\z/ =~ file_body
 
-  n_words = file_body.scan(/[!-~]+/).size
-  if params[:lines]
-    printf("%8d %s\n", n_lines, file_name)
-  else
-    printf("%5d %5d %5d %s\n", n_lines, n_words, file_size, file_name)
+    n_words = file_body.scan(/[!-~]+/).size
+    if params[:lines]
+      printf("%8d %s\n", n_lines, file_name)
+    else
+      printf("%5d %5d %5d %s\n", n_lines, n_words, file_size, file_name)
+    end
   end
 end
 
