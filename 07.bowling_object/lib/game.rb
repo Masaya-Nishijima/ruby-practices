@@ -30,32 +30,25 @@ class Game
 
   def calc_strike_score
     @frames.each_with_index.sum do |frame, index|
-      if index == MAX_FRAME - 1
-        0
+      next 0 if frame.status != 'STRIKE' || index == MAX_FRAME - 1
+
+      next_frame = @frames[index + 1]
+      after_next_frame = @frames[index + 2]
+
+      if next_frame.status == 'STRIKE'
+        next_frame.point + (index != MAX_FRAME - 2 ? after_next_frame.first_shot.point : 0)
       else
-        next_frame = @frames[index + 1]
-        after_next_frame = @frames[index + 2]
-        if frame.status == 'STRIKE'
-          if next_frame.status == 'STRIKE'
-            next_frame.point + (index != MAX_FRAME - 2 ? after_next_frame.first_shot.point : 0)
-          else
-            index == 8 ? next_frame.first_shot.point + next_frame.second_shot.point : next_frame.point
-          end
-        else
-          0
-        end
+        index == 8 ? next_frame.first_shot.point + next_frame.second_shot.point : next_frame.point
       end
     end
   end
 
   def calc_spare_score
-    spare_score = 0
-    @frames.each_with_index do |frame, index|
-      next if index == MAX_FRAME - 1
+    @frames.each_with_index.sum do |frame, index|
+      next 0 if frame.status != 'SPARE' || index == MAX_FRAME - 1
 
       next_frame = @frames[index + 1]
-      spare_score += next_frame.first_shot.point if frame.status == 'SPARE'
+      next_frame.first_shot.point
     end
-    spare_score
   end
 end
