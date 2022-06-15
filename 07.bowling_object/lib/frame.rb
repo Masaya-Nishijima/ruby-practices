@@ -6,16 +6,16 @@ class Frame
   attr_reader :first_shot, :second_shot
 
   def initialize(shots)
-    @first_shot, @second_shot = @shots = shots.map { |shot| Shot.new(shot) }
+    @first_shot, @second_shot, @third_shot = shots.map { |shot| Shot.new(shot) }
   end
 
   def point
-    @shots.map(&:point).sum
+    [@first_shot, @second_shot, @third_shot].compact.map(&:point).sum
   end
 
   def status
-    return unless @shots[2].nil?
+    return unless @third_shot.nil?
     return 'STRIKE' if @first_shot.point == 10
-    return 'SPARE' if @shots.slice(0, 2).map(&:point).sum == 10
+    return 'SPARE' if [@first_shot, @second_shot].map(&:point).sum == 10
   end
 end
