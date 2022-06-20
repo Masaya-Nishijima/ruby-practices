@@ -22,10 +22,8 @@ def main(params, path)
     n_words = file_body.scan(/[!-~]+/).size
 
     printf("%#{WIDTH}d ", n_lines)
-    unless params[:lines]
-      printf("%#{WIDTH}d %#{WIDTH}d ", n_words, file_size, file_name)
-    end
-    printf("%s\n",file_name)
+    printf("%#{WIDTH}d %#{WIDTH}d ", n_words, file_size, file_name) unless params[:lines]
+    printf("%s\n", file_name)
     [n_lines, n_words, file_size]
   end
 end
@@ -43,9 +41,8 @@ params = read_option
 
 has_path = ARGV[0].nil? ? [TEMP_FILE] : ARGV.each { |file| File.absolute_path(file) }
 
-total = []
-has_path.each { |file|  total << main(params, file) }
+total = has_path.each { |file| main(params, file) }
 unless has_path[1].nil?
-  total.transpose.map(&:sum).each { |value| printf("%#{WIDTH}d ", value)}
-  puts("total")
+  total.transpose.map(&:sum).each { |value| printf("%#{WIDTH}d ", value) }
+  puts('total')
 end
