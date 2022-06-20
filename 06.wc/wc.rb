@@ -22,11 +22,11 @@ def main(params)
     n_lines += 1 if /[^\n]\z/.match?(file_body)
     n_words = file_body.scan(/[!-~]+/).size
 
-    if params[:lines]
-      printf("%#{WIDTH}d %s\n", n_lines, file_name)
-    else
-      printf("%#{WIDTH}d %#{WIDTH}d %#{WIDTH}d %s\n", n_lines, n_words, file_size, file_name)
+    printf("%#{WIDTH}d ", n_lines)
+    unless params[:lines]
+      printf("%#{WIDTH}d %#{WIDTH}d ", n_words, file_size, file_name)
     end
+    printf("%s\n",file_name)
   end
 end
 
