@@ -41,7 +41,7 @@ params = read_option
 
 has_path = ARGV[0].nil? ? [TEMP_FILE] : ARGV.each { |file| File.absolute_path(file) }
 
-total = has_path.each { |file| main(params, file) }
+total = has_path.map { |file| main(params, file) }
 unless has_path[1].nil?
   total.transpose.map(&:sum).each { |value| printf("%#{WIDTH}d ", value) }
   puts('total')
