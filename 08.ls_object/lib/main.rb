@@ -6,7 +6,7 @@ class Main
 
   def initialize
     @params = read_option
-    files = Files.new(ARGV[0], @params[:all])
+    @files = Files.new(ARGV[0], @params[:all])
   end
 
   def read_option
@@ -17,5 +17,9 @@ class Main
     opt.on('-l') { |v| params[:long_format] = v }
     opt.parse!(ARGV)
     params
+  end
+
+  def print
+    @files.print_short_form
   end
 end

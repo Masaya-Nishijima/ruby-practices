@@ -6,7 +6,6 @@ RSpec.describe 'メイン' do
       before do
         ARGV.clear
       end
-
       it '-a' do
         ARGV.concat(['-a'])
         main = Main.new
@@ -40,6 +39,18 @@ RSpec.describe 'メイン' do
       end
     end
   end
+
+  describe "表示" do
+    context "ショート表示" do
+      it "オプションなし" do
+        ARGV.clear
+        main = Main.new
+        expect{main.print}.to output.to_stdout
+        expect{main.print}.to_not output(/[0-9]+:[0-9]+/).to_stdout
+      end
+    end
+  end
+
 
   # it "RSpecでARGVの変更" do
   #   ARGV.clear
