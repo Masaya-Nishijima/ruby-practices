@@ -1,9 +1,12 @@
 require 'optparse'
+require 'files'
 
 class Main
   attr_reader :params
+
   def initialize
     @params = read_option
+    files = Files.new(ARGV[0], @params[:all])
   end
 
   def read_option
@@ -15,5 +18,4 @@ class Main
     opt.parse!(ARGV)
     params
   end
-
 end
