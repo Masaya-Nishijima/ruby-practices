@@ -1,4 +1,4 @@
-class Files # 疑問 クラス名に複数形を使ってよいか? files.reverseのような使い方を想定
+class Files # 疑問 クラス名に複数形を使ってよいか?ファイル群 Files.new().reverseのような使い方を想定
   WIDTH = 3
   def initialize(path = nil, all = nil)
     has_all = all.nil? ? 0 : File::FNM_DOTMATCH
@@ -31,13 +31,13 @@ class Files # 疑問 クラス名に複数形を使ってよいか? files.revers
     height = (array.size.to_f / WIDTH).ceil
     answer_array = []
 
-    if array.size <= WIDTH # 要素数が3以下のときの処理(一行で表示が終わる)
+    if array.size <= WIDTH
       answer_array[0] = array
       return answer_array
     end
 
     array = array.each_slice(height).to_a
-    array.size.times do |row| # .transposeで行列の転置をするために、要素数を揃える。
+    array.size.times do |row|
       (array[0].size - array[row].size).times { array[row] << nil }
     end
     array.transpose

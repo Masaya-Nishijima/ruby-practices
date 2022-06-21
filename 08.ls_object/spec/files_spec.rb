@@ -23,14 +23,13 @@ RSpec.describe 'ファイル群' do
         files.print_short_form
       end
     end
-  end
-
-  describe 'ファイル群の反転表示' do
-    it '指定ディレクトリの反転表示' do
-      files = Files.new Dir.getwd + '/spec/test_dir'
-      files.reverse!
-      expect { files.print_short_form }.to output(/test_file9\s*test_file4/).to_stdout
-      files.print_short_form
+    context 'ファイル群の反転表示' do
+      it '指定ディレクトリの反転表示' do
+        files = Files.new Dir.getwd + '/spec/test_dir'
+        files.reverse!
+        expect { files.print_short_form }.to output(/test_file9\s*test_file4/).to_stdout
+        files.print_short_form
+      end
     end
   end
 end
