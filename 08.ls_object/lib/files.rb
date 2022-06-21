@@ -11,7 +11,7 @@ class Files # 疑問 クラス名に複数形を使ってよいか?ファイル�
     @display_width = [@files_names.map(&:length).max + 7, 24].max
   end
 
-  def print_short_form
+  def print_short_format
     files = sort_array(@files_names)
     files.size.times do |time|
       files[time].size.times do |column|

@@ -20,6 +20,6 @@ class Main
   end
 
   def print
-    @files.print_short_form
+    @files.print_short_format
   end
 end
