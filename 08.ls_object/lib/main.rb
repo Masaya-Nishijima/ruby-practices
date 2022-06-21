@@ -20,6 +20,6 @@ class Main
   end
 
   def print
-    @files.print_short_format
+    @params[:long_format] ? @files.print_long_format : @files.print_short_format
   end
 end
