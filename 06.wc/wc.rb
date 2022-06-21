@@ -17,6 +17,14 @@ def main
   total # rubocop Style/GuardClause: Use a guard claus対策
 end
 
+def read_option
+  params = {}
+  opt = OptionParser.new
+  opt.on('-l', '--lines') { |v| params[:lines] = v }
+  opt.parse!(ARGV)
+  params
+end
+
 def count_and_print_wc_element(params, file)
   file_size = file[:body].bytesize
   n_lines = file[:body].count("\n")
@@ -26,15 +34,6 @@ def count_and_print_wc_element(params, file)
   printf("%#{WIDTH}d %#{WIDTH}d ", n_words, file_size) unless params[:lines]
   printf("%s\n", file[:name])
   params[:lines] ? [n_lines] : [n_lines, n_words, file_size]
-end
-
-# コマンドの引数を取得
-def read_option
-  params = {}
-  opt = OptionParser.new
-  opt.on('-l', '--lines') { |v| params[:lines] = v }
-  opt.parse!(ARGV)
-  params
 end
 
 main
