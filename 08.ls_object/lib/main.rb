@@ -7,6 +7,7 @@ class Main
   def initialize
     @params = read_option
     @files = Files.new(ARGV[0], @params[:all])
+    @files.reverse! if @params[:reverse]
   end
 
   def read_option

@@ -50,6 +50,14 @@ RSpec.describe 'メイン' do
         expect{main.print}.to output.to_stdout
         expect{main.print}.to_not output(/[0-9]+:[0-9]+/).to_stdout
       end
+
+      it "反転表示 指定ディレクトリ" do
+        ARGV.concat('-r spec/test_dir'.split(' '))
+        main = Main.new
+        expect{main.print}.to output(/test_file9\s*test_file4/).to_stdout
+        main.print
+      end
+
     end
     context "ロング表示" do
       it "-lのみ" do
@@ -59,7 +67,6 @@ RSpec.describe 'メイン' do
         expect{main.print}.to output(/[0-9]+:[0-9]+/).to_stdout
       end
     end
-
   end
 
 
