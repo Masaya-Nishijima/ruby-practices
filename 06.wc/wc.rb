@@ -3,7 +3,6 @@
 
 require 'optparse'
 require 'etc'
-TEMP_FILE = '.tmp_wc'
 WIDTH = 5
 
 def main
