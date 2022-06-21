@@ -1,5 +1,5 @@
 require 'optparse'
-require 'files'
+require './lib/files'
 
 class Main
   attr_reader :params
