@@ -2,7 +2,7 @@ require 'optparse'
 require './lib/files'
 
 class Main
-  # attr_reader :params
+  # attr_reader :params # 引数処理のスペックを実行する場合はコメントを外す。
 
   def initialize
     @params = read_option
