@@ -13,7 +13,7 @@ class Files
     @files_names = Dir.glob('*', has_all, base: @has_path).sort
     if @files_names == []
       @files_names[0] = path
-      has_path.sub!(/[.a-zA-Z0-9]+$/, '')
+      @has_path.sub!(/[.a-zA-Z0-9]+$/, '')
     end
     @display_width = [@files_names.map(&:length).max + 7, 24].max
   end
