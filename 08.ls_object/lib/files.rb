@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'etc'
 
 class Files
@@ -26,7 +28,7 @@ class Files
     end
   end
 
-  def print_long_format()
+  def print_long_format
     files = @files_names.map { |file| { name: file, info: File.lstat("#{@has_path}/#{file}") } }
     files.map! do |file|
       {

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rspec/core/rake_task'
 
 RSpec::Core::RakeTask.new(:spec)
@@ -5,11 +7,11 @@ RSpec::Core::RakeTask.new(:spec)
 task default: :spec
 
 task :test_setup do
-  sh %{mkdir spec/test_dir}
-  sh %{touch spec/test_dir/.test_file{1..5}}
-  sh %{touch spec/test_dir/test_file{1..15}}
+  sh %(mkdir spec/test_dir)
+  sh %(touch spec/test_dir/.test_file{1..5})
+  sh %(touch spec/test_dir/test_file{1..15})
 end
 
 task :clear do
-  sh %{rm -r spec/test_dir}
+  sh %(rm -r spec/test_dir)
 end
