@@ -4,6 +4,7 @@ class Files # 疑問 クラス名に複数形を使ってよいか?ファイル�
   WIDTH = 3
   TYPE_HASH = { '01' => 'p', '02' => 'c', '04' => 'd', '06' => 'b', '10' => '-', '12' => 'l', '14' => 's' }.freeze
   PERMITS = ['---', '--x', '-w-', '-wx', 'r--', 'r-x', 'r-w', 'rwx'].freeze
+
   def initialize(path = nil, all = nil)
     has_all = all.nil? ? 0 : File::FNM_DOTMATCH
     @has_path = path.nil? ? Dir.getwd : File.absolute_path(path)
@@ -25,10 +26,6 @@ class Files # 疑問 クラス名に複数形を使ってよいか?ファイル�
     end
   end
 
-  def reverse!
-    @files_names.reverse!
-  end
-
   def print_long_format()
     files = @files_names.map { |file| { name: file, info: File.lstat("#{@has_path}/#{file}") } }
     files.map! do |file|
@@ -47,6 +44,28 @@ class Files # 疑問 クラス名に複数形を使ってよいか?ファイル�
     files.each do |file|
       print_line(file, widthes)
     end
+  end
+
+  def reverse!
+    @files_names.reverse!
+  end
+
+  private
+
+  def sort_array(array)
+    height = (array.size.to_f / WIDTH).ceil
+    answer_array = []
+
+    if array.size <= WIDTH
+      answer_array[0] = array
+      return answer_array
+    end
+
+    array = array.each_slice(height).to_a
+    array.size.times do |row|
+      (array[0].size - array[row].size).times { array[row] << nil }
+    end
+    array.transpose
   end
 
   def select_widthes(files)
@@ -92,23 +111,5 @@ class Files # 疑問 クラス名に複数形を使ってよいか?ファイル�
 
   def print_permisson(permisson)
     print PERMITS[permisson.to_i]
-  end
-
-  private
-
-  def sort_array(array)
-    height = (array.size.to_f / WIDTH).ceil
-    answer_array = []
-
-    if array.size <= WIDTH
-      answer_array[0] = array
-      return answer_array
-    end
-
-    array = array.each_slice(height).to_a
-    array.size.times do |row|
-      (array[0].size - array[row].size).times { array[row] << nil }
-    end
-    array.transpose
   end
 end

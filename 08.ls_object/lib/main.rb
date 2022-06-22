@@ -2,13 +2,19 @@ require 'optparse'
 require './lib/files'
 
 class Main
-  attr_reader :params
+  # attr_reader :params
 
   def initialize
     @params = read_option
     @files = Files.new(ARGV[0], @params[:all])
     @files.reverse! if @params[:reverse]
   end
+
+  def print
+    @params[:long_format] ? @files.print_long_format : @files.print_short_format
+  end
+
+  private
 
   def read_option
     params = {}
@@ -18,9 +24,5 @@ class Main
     opt.on('-l') { |v| params[:long_format] = v }
     opt.parse!(ARGV)
     params
-  end
-
-  def print
-    @params[:long_format] ? @files.print_long_format : @files.print_short_format
   end
 end
