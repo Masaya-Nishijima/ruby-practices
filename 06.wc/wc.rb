@@ -13,7 +13,7 @@ def main
     total.transpose.map(&:sum).each { |value| printf("%#{WIDTH}d ", value) }
     puts('total')
   end
-  total # rubocop Style/GuardClause: Use a guard claus対策
+  total # rubocopの対策のための戻り値、戻り値がtotalなことに意味はなし
 end
 
 def read_option
