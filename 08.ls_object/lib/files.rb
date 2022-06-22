@@ -1,6 +1,6 @@
 require 'etc'
 
-class Files # 疑問 クラス名に複数形を使ってよいか?ファイル群 Files.new().reverseのような使い方を想定
+class Files
   WIDTH = 3
   TYPE_HASH = { '01' => 'p', '02' => 'c', '04' => 'd', '06' => 'b', '10' => '-', '12' => 'l', '14' => 's' }.freeze
   PERMITS = ['---', '--x', '-w-', '-wx', 'r--', 'r-x', 'r-w', 'rwx'].freeze
@@ -8,7 +8,7 @@ class Files # 疑問 クラス名に複数形を使ってよいか?ファイル�
   def initialize(path = nil, all = nil)
     has_all = all.nil? ? 0 : File::FNM_DOTMATCH
     @has_path = path.nil? ? Dir.getwd : File.absolute_path(path)
-    @files_names = Dir.glob('*', has_all, base: @has_path).sort # 疑問 (複数あるファイル)の名前 = files_names
+    @files_names = Dir.glob('*', has_all, base: @has_path).sort
     if @files_names == []
       @files_names[0] = path
       has_path.sub!(/[.a-zA-Z0-9]+$/, '')
