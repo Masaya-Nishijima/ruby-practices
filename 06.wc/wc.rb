@@ -9,11 +9,10 @@ def main
   params = read_option
   files = ARGV[0].nil? ? [{ name: '', body: readlines.join }] : ARGV.map { |file| { name: file, body: File.open(file).read } }
   total = files.map { |file| count_and_print_wc_element(params, file) }
-  if files.size >= 2
-    total.transpose.map(&:sum).each { |value| printf("%#{WIDTH}d ", value) }
-    puts('total')
-  end
-  total # rubocopの対策のための戻り値、戻り値がtotalなことに意味はなし
+  return if files.size < 2
+
+  total.transpose.map(&:sum).each { |value| printf("%#{WIDTH}d ", value) }
+  puts('total')
 end
 
 def read_option
