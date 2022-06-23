@@ -28,10 +28,9 @@ def count_and_print_wc_element(params, file)
   n_lines = file[:body].count("\n")
   n_lines += 1 if /[^\n]\z/.match?(file[:body])
   n_words = file[:body].scan(/[!-~]+/).size
-  printf("%#{WIDTH}d ", n_lines)
-  printf("%#{WIDTH}d %#{WIDTH}d ", n_words, file_size) unless params[:lines]
-  printf("%s\n", file[:name])
-  params[:lines] ? [n_lines] : [n_lines, n_words, file_size]
+  counts = params[:lines] ? [n_lines] : [n_lines, n_words, file_size]
+  puts counts.map { |count| count.to_s.rjust(8) }.push(file[:name]).join(' ')
+  counts
 end
 
 main
