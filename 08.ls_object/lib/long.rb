@@ -37,7 +37,7 @@ module LongFormat
   end
 
   def print_line(file, widthes)
-    print_type_and_parmit(file[:mode])
+    print_type_and_permit(file[:mode])
     printf("%#{widthes[:link_width]}d\s", file[:link])
     printf("%#{widthes[:owner_width]}s\s\s", file[:owner])
     printf("%#{widthes[:group_width]}s\s\s", file[:group])
