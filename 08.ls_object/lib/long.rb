@@ -5,7 +5,7 @@ module LongFormat
   PERMITS = ['---', '--x', '-w-', '-wx', 'r--', 'r-x', 'r-w', 'rwx'].freeze
 
   def print_long_format
-    files = @files_names.map { |file| { name: file, info: File.lstat("#{@has_path}/#{file}") } }
+    files = @files.map { |file| { name: file, info: File.lstat("#{@has_path}/#{file}") } }
     files.map! do |file|
       {
         mode: file[:info].mode,
