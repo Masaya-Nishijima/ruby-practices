@@ -47,7 +47,7 @@ module LongFormat
     puts file[:name]
   end
 
-  def print_type_and_parmit(file_mode)
+  def print_type_and_permit(file_mode)
     # ファイルタイプとパーミッションを八進数7桁文字列に変換
     type_and_permisson = format('%#07o', file_mode)
 
