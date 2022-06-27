@@ -3,7 +3,7 @@
 require 'etc'
 require './lib/long'
 
-class Files
+class FileList
   include LongFormat
   WIDTH = 3
 
