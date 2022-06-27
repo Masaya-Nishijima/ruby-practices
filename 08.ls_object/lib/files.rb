@@ -5,7 +5,7 @@ require './lib/long'
 
 class FileList
   include LongFormat
-  WIDTH = 3
+  LINE_DISPLAY_COUNT = 3
 
   def initialize(path = nil, all = nil)
     has_all = all.nil? ? 0 : File::FNM_DOTMATCH
@@ -35,10 +35,10 @@ class FileList
   private
 
   def sort_array(array)
-    height = (array.size.to_f / WIDTH).ceil
+    height = (array.size.to_f / LINE_DISPLAY_COUNT).ceil
     answer_array = []
 
-    if array.size <= WIDTH
+    if array.size <= LINE_DISPLAY_COUNT
       answer_array[0] = array
       return answer_array
     end
