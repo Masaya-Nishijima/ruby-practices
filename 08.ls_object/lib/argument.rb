@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
+require 'optparse'
 class Argument
   attr_reader :path
+
   def initialize
     @params = read_option
     @path = ARGV[0]
@@ -18,6 +22,7 @@ class Argument
   end
 
   private
+
   def read_option
     params = {}
     opt = OptionParser.new

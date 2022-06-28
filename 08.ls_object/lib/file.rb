@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'etc'
 class File
   TYPE_HASH = { '01' => 'p', '02' => 'c', '04' => 'd', '06' => 'b', '10' => '-', '12' => 'l', '14' => 's' }.freeze
   PERMITS = ['---', '--x', '-w-', '-wx', 'r--', 'r-x', 'rw-', 'rwx'].freeze
 
   def name
-    self.to_path
+    File.basename(self)
   end
 
   def type
@@ -24,20 +26,19 @@ class File
   end
 
   def n_link
-    self.lstat.nlink
+    lstat.nlink
   end
 
   def owner
-    Etc.getpwuid(self.lstat.uid).name
-
+    Etc.getpwuid(lstat.uid).name
   end
 
   def group
-    Etc.getgrgid(self.lstat.gid).name
+    Etc.getgrgid(lstat.gid).name
   end
 
   def size
-    self.lstat.size
+    lstat.size
   end
 
   def time_for_ls
@@ -45,15 +46,16 @@ class File
   end
 
   private
+
   def mode_octal
-    format('%#07o', self.lstat.mode)
+    format('%#07o', lstat.mode)
   end
 
   def mode_rwx
-    mode_octal[4..-1].split('').map {|group| PERMITS[group.to_i]}
+    mode_octal[4..].split('').map { |group| PERMITS[group.to_i] }
   end
 
   def time
-    self.lstat.mtime
+    lstat.mtime
   end
 end
