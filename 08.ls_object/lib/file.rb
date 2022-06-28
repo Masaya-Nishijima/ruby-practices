@@ -4,7 +4,7 @@ class File
   PERMITS = ['---', '--x', '-w-', '-wx', 'r--', 'r-x', 'rw-', 'rwx'].freeze
 
   def name
-    File.basename(self)
+    self.to_path
   end
 
   def type
@@ -29,6 +29,7 @@ class File
 
   def owner
     Etc.getpwuid(self.lstat.uid).name
+
   end
 
   def group
@@ -39,8 +40,8 @@ class File
     self.lstat.size
   end
 
-  def time
-    self.lstat.mtime
+  def time_for_ls
+    "#{time.month.to_s.rjust(2)} #{time.day.to_s.rjust(2)} #{time.hour.to_s.rjust(2, '0')}:#{time.min.to_s.rjust(2, '0')}"
   end
 
   private
@@ -50,5 +51,9 @@ class File
 
   def mode_rwx
     mode_octal[4..-1].split('').map {|group| PERMITS[group.to_i]}
+  end
+
+  def time
+    self.lstat.mtime
   end
 end
